@@ -1,0 +1,12 @@
+.\calculations.o: Calculations.c
+.\calculations.o: Calculations.h
+.\calculations.o: CalculatorBase.h
+.\calculations.o: Calculator.h
+.\calculations.o: CalculatorBase.h
+.\calculations.o: LCD.h
+.\calculations.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+.\calculations.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\calculations.o: C:\Keil\ARM\Inc\TI\TM4C123\tm4c123gh6pm.h
+.\calculations.o: Dealy.h
+.\calculations.o: Keypad.h
+.\calculations.o: Calculations.h

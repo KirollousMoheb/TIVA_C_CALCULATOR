@@ -1,0 +1,12 @@
+.\main.o: main.c
+.\main.o: Calculator.h
+.\main.o: CalculatorBase.h
+.\main.o: Calculator.h
+.\main.o: Calculations.h
+.\main.o: CalculatorBase.h
+.\main.o: LCD.h
+.\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+.\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
+.\main.o: C:\Keil\ARM\Inc\TI\TM4C123\tm4c123gh6pm.h
+.\main.o: Dealy.h
+.\main.o: KeyPad.h
