@@ -10,6 +10,8 @@
 ****************************************************/
 
 //values corresponding to each cell in the keypad
+//'.' is used to clear the screen adn restart the running operation
+
 unsigned char values[4][4]={{'1','2','3','+'},{'4','5','6','-'},{'7','8','9','*'},{'.','0','=','/'}};
 
 
