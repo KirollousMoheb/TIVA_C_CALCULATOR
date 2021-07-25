@@ -9,12 +9,12 @@
   * [LCD](#lcd)
   * [KeyPad](#keypad)
 - [Files](#files)
-  * [Delay.c](#delay.c)
-  * [KeyPad.c](#keypad.c)
-  * [LCD.c](#lcd.c)
-  * [Calcuations.c](#calculations.c)
-  * [CalculatorBase.c](#calculatorbase.c)
-  * [Calculator.c](#calculator.c)
+  * [Delay](#delay)
+  * [Keypad](#keypad)
+  * [Lcd](#lcd)
+  * [Calcuations](#calculations)
+  * [CalculatorBase](#calculatorbase)
+  * [Calculator](#calculator)
 
 
 
@@ -56,7 +56,7 @@
 
 ## Files
 
-### Delay.c
+### Delay
 
 Delay in milli Seconds
 
@@ -85,7 +85,7 @@ void delay_micro(int n)
 ```
 
 
-### KeyPad.c
+### Keypad
 
 Two Dimensional array to return the corresponding char if a cell is pressed in the keypad.
 '.' is used to clear and restart the current running operation.
@@ -127,26 +127,31 @@ char getKey(void){
   }
 }
 ```
-### LCD.c
+### Lcd
 
 
-* `LCD_command()`: 
-* `LCD_Init()`: 
-* `LCD_data()`: 
-* `LCD_printInt()`: 
-* `LCD_printdouble()`:  
-* `LCD_printString()`: 
-* `setRow()`: 
+* `LCD_command(unsigned int command)`: set command of LCD to shift cursor,go to the next line,enable cursor,disable cursor,etc...
+* `LCD_Init()`: Initiate the LCD pins and ports.
+* `LCD_data(unsigned char data)`: Write data to the LCD.
+* `LCD_printInt(int number)`: Print an integer on the LCD.
+* `LCD_printdouble(double number)`:  Print a double on the LCD.
+* `LCD_printString(char *str)`: Print a string on the LCD.
+* `setRow(unsigned int row, unsigned int col)`: Set which row in the LCD to start printing at.
 
 
-### Calculations.c
+### Calculations
 
 
-### CalculatorBase.c
+### CalculatorBase
 
+* `scanKeypad()`: returns the key pressed on the KeyPad as a char.
+* `getStarted()`: calls the  `menu()` function to display the menu of options to the user and start the program if '1' is pressed
+* `store(volatile double no, double* mem2)`
+* `memfinalize(double* mem2)`
 
-### Calculator.c
-
+### Calculator
+* `menu()`: Print the menu of options to the user at the beginning of the program.
+* `calculator_Init()`: Calls the `LCD_Init()` and `Init_Keypad()` functions.
 
 
 ## Options
