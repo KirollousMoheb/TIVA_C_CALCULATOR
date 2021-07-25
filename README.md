@@ -1,7 +1,7 @@
 # Simple Calculator Using TIVA C
 # Description
 
-> This a simple Calculator that performs addition,subtraction,multiplication and division by interfacing with a 4x4 Keypad and LCD.
+> This a simple Calculator that performs addition,subtraction,multiplication and division by interfacing Tiva-C TM4C123GH6PM with a 4x4 Keypad and a 16x2 LCD.
 
 ## Table of Contents
 
@@ -15,14 +15,7 @@
   * [Calcuations](#calculations)
   * [CalculatorBase](#calculatorbase)
   * [Calculator](#calculator)
-- [Options](#options)
-  * [options.append](#optionsappend)
-  * [options.filter](#optionsfilter)
-  * [options.slugify](#optionsslugify)
-  * [options.bullets](#optionsbullets)
-  * [options.maxdepth](#optionsmaxdepth)
-  * [options.firsth1](#optionsfirsth1)
-  * [options.stripHeadingTags](#optionsstripheadingtags)
+
 
 
 
@@ -34,27 +27,29 @@
 
 
 
-```js
-var Remarkable = require('remarkable');
-var toc = require('markdown-toc');
-
-function render(str, options) {
-  return new Remarkable()
-    .use(toc.plugin(options)) // <= register the plugin
-    .render(str);
-}
+```c
+/****************************************************/   
+/*
+*  Hardware Connentions
+*
+* [PB0 - PB7] -> [ D0- D7 ]  Data
+* [PA5 - PA7] -> [Rs-R2-E]   Control
+ 
+****************************************************/
 ```
 
 
 ### KeyPad
 
-```js
-toc('# AAA\n## BBB\n### CCC\nfoo').json;
-
-// results in
-[ { content: 'AAA', slug: 'aaa', lvl: 1 },
-  { content: 'BBB', slug: 'bbb', lvl: 2 },
-  { content: 'CCC', slug: 'ccc', lvl: 3 } ]
+```c
+/****************************************************/   
+/*
+*  Hardware Connentions
+*
+* [PE1 - PE4] -> [R1 - R4]  Rows
+* [PC4 - PC7] -> [C1 - C4]  Columns
+*  
+****************************************************/
 ```
 
 
@@ -63,116 +58,101 @@ toc('# AAA\n## BBB\n### CCC\nfoo').json;
 
 ### Delay
 
+Delay in milli Seconds
 
-
-```js
-var Remarkable = require('remarkable');
-var toc = require('markdown-toc');
-
-function render(str, options) {
-  return new Remarkable()
-    .use(toc.plugin(options)) // <= register the plugin
-    .render(str);
+```c
+void delay_milli(int n){
+int i,j;
+for(i=0;i<n;i++)
+for(j=0;j<3180;j++)
+{}
 }
+
 ```
 
+Delay in Micro Seconds
+
+```c
+void delay_micro(int n)
+{
+ int i,j;
+ for(i=0;i<n;i++)
+ for(j=0;j<3;j++)
+ {}
+ 
+}
+
+```
 
 
 ### KeyPad
 
-Object for creating a custom TOC.
-
-```js
-toc('# AAA\n## BBB\n### CCC\nfoo').json;
-
-// results in
-[ { content: 'AAA', slug: 'aaa', lvl: 1 },
-  { content: 'BBB', slug: 'bbb', lvl: 2 },
-  { content: 'CCC', slug: 'ccc', lvl: 3 } ]
+Two Dimensional array to return the corresponding char if a cell is pressed in the keypad.
+'.' is used to clear and restart the current running operation.
+```c
+unsigned char values[4][4]={{'1','2','3','+'},{'4','5','6','-'},{'7','8','9','*'},{'.','0','=','/'}};
 ```
-
+Initializing the Keypad
+```c
+void Init_Keypad(){
+  SYSCTL_RCGCGPIO_R |= 0x14;       	 		//Clock for port C and E    
+  while ((SYSCTL_RCGCGPIO_R&0x14)==0);	//wait for clock to be enabled
+  GPIO_PORTE_LOCK_R=0x4C4F434B;				   	//open lock for port E
+  GPIO_PORTC_LOCK_R=0x4C4F434B;		   			//open lock for port C
+  GPIO_PORTC_CR_R  |= 0xF0;            
+  GPIO_PORTE_CR_R  |= 0x1E;            
+  GPIO_PORTC_DIR_R |= 0xF0;             //Columns are output
+  GPIO_PORTE_DIR_R |= 0x00;            	//Rows are input
+  GPIO_PORTE_PDR_R |= 0x1E;           
+  GPIO_PORTC_DEN_R |= 0xF0;            	//Digital enable for port C(7-4)
+  GPIO_PORTE_DEN_R |= 0x1E; 					      	//Digital enable for port E(7-4)
+}
+```
+Returning the pressed button's character
+```c
+char getKey(void){
+	int i;int j;
+  while(1)
+  {
+    for( i = 0; i < 4; i++)                        //columns traverse
+    {
+      GPIO_PORTC_DATA_R = (1U << (i+4));
+      
+      for( j = 0; j < 4; j++)                     //raws traverse
+      {
+        if((GPIO_PORTE_DATA_R & 0x1E) & (1U << (j+1)))
+          return values[j][i];
+      }
+    }	
+  }
+}
+```
 ### LCD
 
 
-
-```
-<!-- toc -->
-- old toc 1
-- old toc 2
-- old toc 3
-<!-- tocstop -->
-
-## abc
-This is a b c.
-
-## xyz
-This is x y z.
-```
-
+* `LCD_command()`: 
+* `LCD_Init()`: 
+* `LCD_data()`: 
+* `LCD_printInt()`: 
+* `LCD_printdouble()`:  
+* `LCD_printString()`: 
+* `setRow()`: 
 
 
 ### Calculations
 
-As a convenience to folks who wants to create a custom TOC, markdown-toc's internal utility methods are exposed:
 
-```js
-var toc = require('markdown-toc');
-```
-
-* `toc.bullets()`: render a bullet list from an array of tokens
-* `toc.linkify()`: linking a heading `content` string
-* `toc.slugify()`: slugify a heading `content` string
-* `toc.strip()`: strip words or characters from a heading `content` string
 ### CalculatorBase
 
-As a convenience to folks who wants to create a custom TOC, markdown-toc's internal utility methods are exposed:
 
-```js
-var toc = require('markdown-toc');
-```
-
-* `toc.bullets()`: render a bullet list from an array of tokens
-* `toc.linkify()`: linking a heading `content` string
-* `toc.slugify()`: slugify a heading `content` string
-* `toc.strip()`: strip words or characters from a heading `content` string
 ### Calculator
 
-As a convenience to folks who wants to create a custom TOC, markdown-toc's internal utility methods are exposed:
 
-```js
-var toc = require('markdown-toc');
-```
-
-* `toc.bullets()`: render a bullet list from an array of tokens
-* `toc.linkify()`: linking a heading `content` string
-* `toc.slugify()`: slugify a heading `content` string
-* `toc.strip()`: strip words or characters from a heading `content` string
 
 ## Options
 
-### options.append
-
-Append a string to the end of the TOC.
-
-```js
-toc(str, {append: '\n_(TOC generated by Verb)_'});
-```
-
-### options.filter
-
-Type: `Function`
-
-Default: `undefined`
-
-Params:
-
-* `str` **{String}** the actual heading string
-* `ele` **{Objecct}** object of heading tokens
-* `arr` **{Array}** all of the headings objects
 
 
 
 
-
-```
  
