@@ -9,12 +9,12 @@
   * [LCD](#lcd)
   * [KeyPad](#keypad)
 - [Files](#files)
-  * [Delay](#delay)
-  * [KeyPad](#keypad)
-  * [LCD](#lcd)
-  * [Calcuations](#calculations)
-  * [CalculatorBase](#calculatorbase)
-  * [Calculator](#calculator)
+  * [Delay.c](#delay.c)
+  * [KeyPad.c](#keypad.c)
+  * [LCD.c](#lcd.c)
+  * [Calcuations.c](#calculations.c)
+  * [CalculatorBase.c](#calculatorbase.c)
+  * [Calculator.c](#calculator.c)
 
 
 
@@ -56,7 +56,7 @@
 
 ## Files
 
-### Delay
+### Delay.c
 
 Delay in milli Seconds
 
@@ -85,7 +85,7 @@ void delay_micro(int n)
 ```
 
 
-### KeyPad
+### KeyPad.c
 
 Two Dimensional array to return the corresponding char if a cell is pressed in the keypad.
 '.' is used to clear and restart the current running operation.
@@ -127,7 +127,7 @@ char getKey(void){
   }
 }
 ```
-### LCD
+### LCD.c
 
 
 * `LCD_command()`: 
@@ -139,13 +139,13 @@ char getKey(void){
 * `setRow()`: 
 
 
-### Calculations
+### Calculations.c
 
 
-### CalculatorBase
+### CalculatorBase.c
 
 
-### Calculator
+### Calculator.c
 
 
 
