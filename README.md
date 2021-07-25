@@ -140,7 +140,14 @@ char getKey(void){
 
 
 ### Calculations
-
+printResult
+* `printResult(double result)`: 
+* `add(double num1,double num2)`: 
+* `sub(double num1,double num2)`: 
+* `mult(double num1,double num2)`:
+* `divide(double num1,double num2)`:  
+* `LCD_Calc()`: 
+* `calculate()`: 
 
 ### CalculatorBase
 
