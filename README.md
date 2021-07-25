@@ -162,7 +162,7 @@ printResult
 
 
 ## Options
-
+The project can be improved to be on a larger sale with using a 16x4 LCD for example and adding more options at the starting menu instead of a simple calculator only.
 
 
 
