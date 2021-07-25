@@ -141,13 +141,13 @@ char getKey(void){
 
 ### Calculations
 printResult
-* `printResult(double result)`: 
-* `add(double num1,double num2)`: 
-* `sub(double num1,double num2)`: 
-* `mult(double num1,double num2)`:
-* `divide(double num1,double num2)`:  
-* `LCD_Calc()`: 
-* `calculate()`: 
+* `printResult(double result)`: Prints the result to the LCD.
+* `add(double num1,double num2)`: Add two numbers and calls the `printResult(double result)` function to print the result to the screen.
+* `sub(double num1,double num2)`: Subtract two numbers and calls the `printResult(double result)` function to print the result to the screen.
+* `mult(double num1,double num2)`:Multiply two numbers and calls the `printResult(double result)` function to print the result to the screen.
+* `divide(double num1,double num2)`:Divide two numbers and calls the `printResult(double result)` function to print the result to the screen.
+* `LCD_Calc()`: Print Enter the operation to the LCD and calculations start on the 2nd line.
+* `calculate()`: Perform the right operation depends on the user's input and use all the previous functions.
 
 ### CalculatorBase
 
